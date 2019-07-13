@@ -354,10 +354,9 @@ class CascadeRCNN(BaseDetector, RPNTestMixin):
                 results = ms_bbox_result['ensemble']
         else:
             if self.with_mask:
-                results = {
-                    stage: (ms_bbox_result[stage], ms_segm_result[stage])
-                    for stage in ms_bbox_result
-                }
+                results = [
+                    {stage: ms_bbox_result[stage] for stage in ms_bbox_result},
+                    {stage: ms_segm_result[stage] for stage in ms_bbox_result}]
             else:
                 results = ms_bbox_result
 
